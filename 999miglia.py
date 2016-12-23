@@ -7,30 +7,6 @@ import gpxpy
 import gpxpy.gpx
 
 
-def getWaypoints(fileName):
-    with open(fileName, 'r') as segFile:
-        _ = gpxpy.parse(segFile)
-        return _.waypoints
-
-
-def getPoints(fileName):
-    """returns the GPX segment from fileName, asserting that
-    fileName contains only one segment"""
-
-    with open(fileName, 'r') as segFile:
-        _ = gpxpy.parse(segFile)
-        assert len(_.tracks) == 1, '{} has {} tracks'.format(fileName, len(_.tracks))
-        _ = _.tracks[0]
-        assert len(_.segments) == 1, '{} has {} segments in track'.format(fileName, len(_.segments))
-        _ = _.segments[0]
-        return _.points
-
-def trackFromSegments(partList):
-    fullTrack = gpxpy.gpx.GPXTrack()
-    fullTrack.segments.extend(partList)
-    return fullTrack
-
-
 class Part:
 
     http = urllib3.PoolManager()
